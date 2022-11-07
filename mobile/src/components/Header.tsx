@@ -1,6 +1,6 @@
+import { useNavigation } from '@react-navigation/native';
 import { Text, HStack, Box } from 'native-base';
-import { CaretLeft, Export } from 'phosphor-react-native';
-import { useNavigation } from "@react-navigation/native";
+import { CaretLeft, Export, Gear } from 'phosphor-react-native';
 
 import { ButtonIcon } from './ButtonIcon';
 
@@ -8,35 +8,56 @@ interface Props {
   title: string;
   showBackButton?: boolean;
   showShareButton?: boolean;
-  backRoute?: 'new' | 'find' | 'pools' | 'details';
+  showConfigButton?: boolean;
   onShare?: () => void;
+  toConfig?: () => void;
 }
 
-export function Header({ title, showBackButton = false, showShareButton = false, backRoute = null, onShare = null }: Props) {
+export function Header({
+  title,
+  showBackButton = false,
+  showShareButton = false,
+  showConfigButton = false,
+  onShare,
+  toConfig,
+}: Props) {
   const { navigate } = useNavigation();
-
-  const EmptyBoxSpace = () => (<Box w={6} h={6} />);
+  const EmptyBoxSpace = () => <Box w={6} h={6} />;
 
   return (
-    <HStack w="full" h={24} bgColor="gray.800" alignItems="flex-end" pb={5} px={5}>
+    <HStack
+      w="full"
+      h={24}
+      bgColor="gray.800"
+      alignItems="flex-end"
+      pb={5}
+      px={5}
+    >
       <HStack w="full" alignItems="center" justifyContent="space-between">
-        {
-          showBackButton
-            ? <ButtonIcon icon={CaretLeft} onPress={() => navigate(backRoute)} />
-            : <EmptyBoxSpace />
-        }
+        {showBackButton ? (
+          <ButtonIcon icon={CaretLeft} onPress={() => navigate('pools')} />
+        ) : (
+          <EmptyBoxSpace />
+        )}
 
-        <Text color="white" fontFamily="medium" fontSize="md" textAlign="center">
+        <Text
+          color="white"
+          fontFamily="medium"
+          fontSize="md"
+          textAlign="center"
+        >
           {title}
         </Text>
 
-        {
-          showShareButton
-            ?
-            <ButtonIcon icon={Export} onPress={onShare} />
-            :
-            <EmptyBoxSpace />
-        }
+        {showShareButton ? (
+          <ButtonIcon icon={Export} onPress={onShare} />
+        ) : showConfigButton ? null : (
+          <EmptyBoxSpace />
+        )}
+
+        {showConfigButton ? (
+          <ButtonIcon icon={Gear} onPress={toConfig} />
+        ) : null}
       </HStack>
     </HStack>
   );

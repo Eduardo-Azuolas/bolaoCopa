@@ -1,19 +1,17 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: [
-    'src/**/*.tsx'
-  ],
+  content: ['./src/**/*.tsx'],
   theme: {
     extend: {
       fontFamily: {
-        sans: 'Roboto, sans-serif'
+        sans: 'Roboto, sans-serif',
       },
       backgroundImage: {
         app: 'url(/app-bg.png)',
       },
       colors: {
         ignite: {
-          500: '#129E57',
+          500: '#128E57',
         },
         yellow: {
           500: '#F7DD43',
@@ -28,6 +26,6 @@ module.exports = {
         },
       },
     },
+    plugins: [],
   },
-  plugins: [],
-}
+};
